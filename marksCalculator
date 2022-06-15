@@ -1,0 +1,28 @@
+#SPRING 2022
+#Created by Sailove Ghimire(sailoveg@mun.ca)
+#pseudocode for a calculator to calculate the required minimum final marks to pass the ENGI 1020 Course!
+
+#initializing variable
+termScore = int(input("What is your term average in percentage?"))
+midTerm = int(input("What is your midterm test average?"))
+
+#if else conditions to meet desired requirement
+if 0 <= termScore <= 100:
+    requiredMarks = int((50 - (termScore * 0.6))/0.4)      #calculated final required Marks to pass the course
+    
+    #if condition to manipulate calculated final marks 
+    if requiredMarks >= 100:     
+        print("You need to score 100 marks to pass the exam!")
+        
+    elif requiredMarks <= 50:
+        if (((requiredMarks * 0.4) + (midTerm * 0.24)) >= 32) == True:      #if needed final marks is less than 50 percent, need to satisfy this condition to pass the course
+            print(f'You need a minimum of {requiredMarks} marks to get in the final exam!')
+        else:
+            finalMarks = int(((32 - (midTerm * 0.24))/0.4))       #if the above condition is not met, need to recalculate the required marks
+            print(f'You need a minimum of {finalMarks} marks in the final exam to pass the ENGI 1020 course!')
+    
+    else:       
+        print(f'You need a minimum of {requiredMarks} marks to get in the final exam!')        #displays the required final marks to pass the course
+        
+else:
+    print("You provided an invalid grade. Please input a valid mark!")           #if the grades are not in between 0 and 100 percent, request a valid mark
