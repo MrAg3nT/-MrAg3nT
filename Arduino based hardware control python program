@@ -1,0 +1,28 @@
+# Lab 3 Starting Script
+# ENGI1020 - Spring 2022
+# A temperature sensor alarm pseudocode for Grove beginner kit for Arduino
+# (c) Lori Hogan, Modified by Sailove Ghimire(sailoveg@mun.ca)
+
+#import statement to import from module
+from engi1020.arduino.api import *        #used engi1020 module
+from time import sleep             #sleep function called from time module
+
+#loop condition
+while True:
+   
+    #initializing variables
+    threshold = pressure_get_temp()       #get temp value from sensor and put it in threshold variable
+    
+    if threshold > 20:
+        
+        if digital_read(6) == False:    #is button pressed? 
+            buzzer_note(5, 575, 2)      #play the buzzer in an interval of 2 seconds for 2 seconds
+            print("The alarm criteria is met!")      #Display alarm criteria is met on console
+        
+        else:
+            print(f'Current temperature is {threshold} degree celcius!')       #Dispalys current room temperature in degree celcius after every 2 seconds
+            buzzer_stop(5)    #if button is pressed, stop the buzzer
+    else:
+        print(f'Current temperature is {threshold} degrees celcius!')          #Dispalys current room temperature in degree celcius after every 2 seconds
+        
+    sleep(2)       #hold/stop the programme for 2 seconds
