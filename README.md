@@ -9,8 +9,8 @@ column = 0
 
 #used while loop untill users want to quit
 while True:
-    direction = input("Which direction do you want to move? N, E, W, S?")     #initializing variable to store user input direction
-    direction = direction.upper()     #convert direction into uppercase
+    direction = input("Which direction do you want to move? N, E, W, S?")           #initializing variable to store user input direction
+    direction = direction.upper()           #convert direction into uppercase
     
     #if else conditions to confirm directions!
     if direction == "N": 
