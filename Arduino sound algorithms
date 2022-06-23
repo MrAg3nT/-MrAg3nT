@@ -1,0 +1,62 @@
+# ENGI 1020, Spring 2022
+# Starting script file for Lab 4
+# Written by Sailove Ghimire
+
+
+#initalizing import function
+from engi1020.arduino.api import *
+from time import sleep
+
+
+#initializing datalist
+dataList = []
+
+
+#while loop to continuously iterate the sound level until the length of datalist reaches 10
+while len(dataList) < 10:
+    dataList.append(analog_read(2))      #adding one sound level at a time to the datalist
+    sleep(1)      #helps to take the data value at an interval of 1 second
+    
+print(dataList)       #displays the contained datalist in console
+
+
+#Initializing variables
+subSamples = 0
+
+
+#for loop to add the values in the list
+for x in dataList:
+    subSamples = subSamples + x
+    
+average = int(subSamples/10)            #takes average value of the calculated sum as integer
+print(subSamples)                       #prints off the total sum of datalist
+
+
+#if conditions to verify the calculated sum and manipulate output devices based on data values and average
+if sum(dataList) == subSamples:
+    
+    #initalizing values from datalist
+    for i in dataList:     
+        
+        #if condition to compare average with each datalist values
+        if i == average:
+            print("The average is equal to one of the dataList!", average)             #displays which data matches to the average
+            oled_print(average)          #prints the average value to oled display on arduino
+            
+            break                        #breaks the loop if the average values matches with any data values
+            
+        else:
+            
+            if i > average:               #if condition to compare by how much the datalist is greater than average 
+                a = i - average           #takes the difference value of average and datalist and stores it into variable; a 
+                print("The datalist is greater by", a,"than the  average!")                 #displays the comparison status
+                
+            else:
+                b = average - i           #takes the difference value of average and datalist and stores it into variable; b
+                print("The average  is greater by", b,"than the datalist!")                 #displays the comparison status
+
+        sleep(1)          #pause the loop for 1 second   
+        
+else:
+    print("The calculated sum is not correct!")               #displays if the calculated sum is not correct
+            
