@@ -1,0 +1,47 @@
+# ENGI 1020, Spring 2022
+# Starting script file for Lab 5
+# References to Lab 5 Preparation and Procedure below
+# Created by Sailove Ghimire
+
+from engi1020.arduino.api import *
+from time import sleep
+
+def lab5_dataCollect(analogPin, sampleCount, waitTime):
+    
+    """
+    Reads sampleCount samples from anlogPin at waitTime seconds interval
+    Returns collected data in a list
+    
+    """
+    
+    #Initializing rotary data list variable
+    rotaryList = []
+    
+    #while loop to appeng samples until required number
+    while len(rotaryList) < sampleCount:
+        rotaryList.append(analog_read(analogPin))
+        sleep(waitTime)
+    
+    #calculated the average of the collected data list
+    rotaryAverage = int(sum(rotaryList)/len(rotaryList))
+    
+    #for loop to compare each sample in rotary data list with the average values
+    for eachSample in rotaryList:
+        
+        if eachSample < rotaryAverage:            #if condition to check if each sample is smaller than average values
+            servo_set_angle(7, 45)                #set the servo angle to 45 degrees  
+            
+        elif eachSample > rotaryAverage:          #if condition to check if each sample is greater than average values
+            servo_set_angle(7, 125)               #set the servo angle to 125 degrees
+            
+        else:
+            servo_set_angle(7, 90)                #set the servo angle to 90 degrees
+        
+        sleep(0.5)
+       
+    print("Here is my rotary data:", rotaryList)                     #prints the rotary data list
+    print("The average of the rotary data is", rotaryAverage)        #prints the rotary data average
+    return("")
+        
+print(lab5_dataCollect(6, 100, 0.1))
+        
