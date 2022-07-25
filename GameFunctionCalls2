@@ -1,0 +1,152 @@
+
+def cm_gridMove(pathString, startPoint = (0, 0)):
+    """
+    Given string input, return final position of CM player
+
+    Parameters:
+       pathString - directions the user takes on the grid (combo of N, S, E, W, n, s, e, w)
+       startPoint - row, col that CM player began at; tuple
+            default is (0, 0)
+     
+     Return:
+        (row, col) of final position; tuple
+
+    """
+    
+    #Initialize row, col from start tuple
+    row = startPoint[0]
+    col = startPoint[1]
+    
+    #Convert to lowercase to reduce comparison
+    pathString = pathString.lower()
+
+    #Iterate through string and change position values
+    for dir in pathString:
+        if dir == 'n':
+            row += 1
+        elif dir == 's':
+            row -= 1
+        elif dir == 'e':
+            col += 1
+        elif dir == 'w':
+            col -= 1
+            
+    return (row, col)
+
+#print(cm_gridMove("nsewswewwssn", (0,0)))
+    
+def cm_pointOnPath(pathString, point, startPoint = (0, 0)):
+    """
+    Given the path, a point on the grid, and the starting point, 
+    returns whether or not the CM player will intersect that grid point
+    Used to see if CM player collects coins or objects in grid
+
+    Arguments:
+    pathString -  directions the user takes on the grid; string
+        (combo of N,S,E,W,n,s,e,w)
+    point - row, col of interest; tuple
+    startPoint - row, col that CM player began at; tuple
+        default is (0, 0)
+
+    Returns:
+    onPath - True is player intersects point, False otherwise
+    """
+    
+    if point == cm_gridMove(pathString, startPoint):
+        return(True)
+    else:
+        return(False)
+    
+   
+#print(cm_pointOnPath('nn', (0, -1), startPoint = (0, 0)))
+
+def cm_generatePath(startPoint, endPoint):
+    """
+    Given the end and starting coordinates, returns a string indicating
+        the directions the player can take to travel
+
+    Arguments:
+    endPoint - row, col to end at; tuple
+    startPoint - row, col that CM player began at; tuple
+        default is (0, 0)
+
+    Returns:
+    path - directions to get from start point to end point
+    """
+    row = startPoint[0]
+    col = startPoint[1]
+    possiblePath = []
+      
+    while row != endPoint[0]:
+        if row > endPoint[0]:
+            possiblePath.append("n")
+            row -= 1
+        else:
+            possiblePath.append("s")
+            row += 1
+    
+    while col != endPoint[1]:
+        if col > endPoint[1]:
+            possiblePath.append("e")
+            col -= 1
+        else:
+            possiblePath.append("w")
+            col += 1
+    
+    new = ""
+    for x in possiblePath:
+        new += x
+    
+    return (new)
+
+#print(cm_generatePath((0, 2), (0, 0)))
+
+def cm_reversePath(pathString, reTrace = True):
+    """
+      Given the original path, returns a string indicating how to
+      return the CM player to their starting position.
+
+      Arguments:
+      pathString -  directions the user takes on the grid; string
+        (combo of N,S,E,W,n,s,e,w)
+      reTrace - flag to indicate if return should exact reverse; bool
+        default is True, meaning player should retrace steps exactly
+
+      Returns:
+      reverseString - directions to get back to start point
+        eg. if pathString is "NSEWS" and reTrace is True,
+          return should be "NEWNS"
+        eg. if pathString is "NSEWS" and reTrace is False,
+          return could be "N"
+    """
+    
+    returnPath = []
+    startPoint = (0, 0)
+    
+    #Convert to lowercase to reduce comparison
+    pathString = pathString.lower()
+    
+    if reTrace == True:
+    
+        for dir in reversed(pathString):
+            if dir == "s":
+                returnPath.append("n")
+            elif dir == "n":
+                returnPath.append("s")
+            elif dir == "w":
+                returnPath.append("e")
+            elif dir == "e":
+                returnPath.append("w")
+                
+    else:
+        endPoint = cm_gridMove(pathString, startPoint)
+        returnPath = cm_generatePath(startPoint, endPoint)
+    
+    new = ""
+    for x in returnPath:
+        new += x
+        
+    return(new)
+    
+#print(cm_reversePath("news", True))
+            
