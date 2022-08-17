@@ -1,0 +1,58 @@
+import string
+
+def encode(plaintext):
+        
+    """
+    encode module
+    Given a block of string encodes the string in reverse alphabet pattern
+    Returns the encoded string
+    
+    @author: Sailove Ghimire
+
+    """
+        
+    encodeText = ""
+        
+    for letters in plaintext:
+        if 65 <= ord(letters) <= 90:
+            encodeText += chr(90 - ord(letters) + 65)
+        
+        elif 97 <= ord(letters) <= 122:
+            encodeText += chr(122 - ord(letters) + 97)
+            
+        else:
+            encodeText += chr(ord(letters))
+            
+    return(encodeText)
+
+
+
+def decode(ciphertext):
+        
+    """
+    decode module
+    Given the encoded string decodes it in reverse pattern
+    Returns the decoded message
+    
+    @author: Sailove Ghimire
+    
+    """
+    
+    alphabets = "abcdefghijklmnopqrstuvwxyz"
+    decodeText = ""
+    
+    
+    for letters in ciphertext:
+        if 65 <= ord(letters) <= 90:
+            decodeText += chr(90 - (ord(letters) - 65))
+        
+        elif 97 <= ord(letters) <= 122:
+            decodeText += chr(122 - (ord(letters) - 97))
+            
+        else:
+            decodeText += chr(ord(letters))
+                                
+                    
+    return(decodeText)
+
+
