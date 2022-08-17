@@ -1,0 +1,76 @@
+#imported string
+import string
+
+
+#initializing encoding function with parameters plaintext and key
+def encoded(plaintext, key):
+        
+    """
+    encode module
+    Given the series of string as plaintext and number as key,
+    encodes the given string and returns encoded series of string
+    
+    @author: Sailove Ghimire
+    
+
+    """
+    #initializing string variable   
+    encodeText = ""
+    
+    #for conditions to encode
+    for letters in plaintext:
+        if 65 <= ord(letters) <= 90:
+            if ord(letters) + key > 90:
+                encodeText += chr(ord(letters)+ key - 26)
+            else:
+                encodeText += chr(ord(letters)+ key)
+                 
+        elif 97 <= ord(letters) <= 122:
+            if ord(letters) + key > 122:
+                encodeText += chr(ord(letters)+ key - 26)
+            else:
+                encodeText += chr(ord(letters)+ key)
+  
+        else:
+            encodeText += chr(ord(letters))
+                 
+                  
+    return(encodeText)
+
+
+        
+def decoded(ciphertext, key):
+        
+    """
+    decode module
+    Given a series of encoded string and a number by which it is encoded
+    Returns the dedcoded message
+    
+    @author: Sailove Ghimire
+
+    """
+    
+    #initializing string variable
+    decodeText = ""
+    
+    #for conditions to decode
+    for letters in ciphertext:
+        if 65 <= ord(letters) <= 90:
+            if ord(letters) - key < 65:
+                decodeText += chr(ord(letters) - key + 26)
+            else:
+                decodeText += chr(ord(letters) - key)
+                 
+        elif 97 <= ord(letters) <= 122:
+            if ord(letters) - key < 97:
+                decodeText += chr(ord(letters) - key + 26)
+            else:
+                decodeText += chr(ord(letters)- key)
+  
+        else:
+            decodeText += chr(ord(letters))
+                 
+                                
+    return(decodeText)
+       
+                   
