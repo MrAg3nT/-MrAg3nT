@@ -1,0 +1,83 @@
+def parseTimeData(time):
+    
+    """
+    Given a time-formatted data such as (12:34:56),
+    Returns a tuple of int (12, 34, 56)
+    
+    """
+    
+    data = ""
+    lists = []
+    count = 0
+    
+    for letters in time:
+        if letters != ":":
+            if len(time) == count + 1:
+                data += letters
+                lists.append(data)
+                
+            else:
+                data += letters
+                
+        else:
+            lists.append(data)
+            data = ""
+            
+        count +=1
+        
+    return(int(lists[0]), int(lists[1]), int(lists[2]))
+
+
+
+def calculateTotalSeconds(data):
+    
+    """
+    Given a list as argument i.e., [(12:34:56),(34:56:23)]
+    returns the total sum of the lap time
+    
+    """
+    
+    
+    total = ""
+    hours = []
+    minutes = []
+    seconds = []
+    
+    for lists in data:
+        
+        lapTime = parseTimeData(lists)
+        hours.append(lapTime[0])
+        minutes.append(lapTime[1])
+        seconds.append(lapTime[2])
+          
+    totalHours = sum(hours)
+    totalMinutes = sum(minutes)
+    totalSeconds = sum(seconds)
+            
+    if totalMinutes > 60:
+        totalMinutes -= 60
+        totalHours += 1
+
+    if totalSeconds > 60:
+        totalSeconds -= 60
+        totalMinutes += 1
+        
+    totalMinutes = str(totalMinutes)    
+    if len(totalMinutes) == 1:
+        totalMinutes = "0" + totalMinutes
+        
+    totalSeconds = str(totalSeconds)  
+    if len(totalSeconds) == 1:
+        totalSeconds = "0" + totalSeconds
+            
+    
+    total += str(totalHours) + ":" + str(totalMinutes) +":" + str(totalSeconds)
+    
+    return(total)
+
+
+
+data = ["12:54:52","92:34:09"]   
+
+print(calculateTotalSeconds(data))
+
