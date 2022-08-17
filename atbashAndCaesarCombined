@@ -1,0 +1,24 @@
+#The caesar and atbash encryption must be saved as .py file to run this program
+from caesar import *
+from atbash import *
+
+plaintext = input("Enter the plaintext?")
+cipher = (input("Choose the cipher you want! C for Caesar and A for atbash?")).lower()
+
+if cipher == "c":
+    key = int(input("Enter the numeric key?"))
+    
+action = (input("If you want to encrypt type e OR type d for decrypt!")).lower()
+
+if cipher == "c" and action == "e":
+    print(encoded(plaintext, key))
+    
+elif cipher == "c" and action == "d":
+    print(decoded(plaintext, key))
+    
+elif cipher == "a" and action == "e":
+    print(encode(plaintext))
+    
+elif cipher == "a" and action == "d":
+    print(decode(plaintext))
+    
