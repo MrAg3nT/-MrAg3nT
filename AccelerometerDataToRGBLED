@@ -1,0 +1,52 @@
+from engi1020.arduino.api import *
+import math
+from time import sleep
+from random import randint
+import matplotlib.pyplot as plt
+import numpy as np
+
+def valueToColor(value, maxRange, minRange):
+    m = (255 - 0)/(maxRange - minRange)
+    y = m * (value - minRange)
+
+def accelerometerData(sleepTime):
+
+    X = []
+    y = []
+    Z = []
+    
+    while digital_read(6) == False:
+        
+        x = three_axis_get_accelX
+        y = three_axis_get_accelY
+        z = three_axis_get_accelZ
+        
+        X.append(three_axis_get_accelX())
+        Y.append(three_axis_get_accelY())
+        Z.append(three_axis_get_accelZ())
+        
+        r = ValueToColor(x, 2, -2)
+        g = ValueToColor(y, 2, -2)
+        b = ValueToColor(z, 2, -2)
+        
+        rgb_lcd_colour(r, g, b)
+    
+        sleep(sleepTime)
+        
+    return (X, Y, Z)
+
+
+    average1 = int(sum(X)/len(X))
+    average2 = int(sum(Y)/len(Y))
+    average3 = int(sum(Z)/len(Z))
+    oled_print(average1, average2, average3)
+
+
+    plt.plot(X)
+    plt.plot(Y)
+    plt.plot(Z)
+    plt.xlabel("Assumed time/s")
+    plt.ylabel("Acceleration Values/g")
+    plt.show
+
+print(accelerometerData(1))
